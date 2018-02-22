@@ -1,0 +1,12 @@
+apiVersion: v1
+appVersion: "1.0"
+description: "My first chart with nginx running with HTTP"
+name: nginx-beta
+version: 0.1.0
+keywords:
+  - http
+  - nginx
+  - www
+maintainers:
+  - name: Miguel Mingorance
+    email: miguel.mingorance@deliveryhero.com
