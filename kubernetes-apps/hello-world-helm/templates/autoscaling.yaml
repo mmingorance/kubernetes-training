@@ -1,20 +1,20 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hello-world-helm-autoscaler
-  namespace: default
+  name: {{ template "hello-world-helm.fullname" . }}
+  namespace: {{ .Values.namespaces.default }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1beta1
     kind: Deployment
-    name: hello-world-helm
+    name: {{ template "hello-world-helm.fullname" . }}
   minReplicas: 1
   maxReplicas: 10
   metrics:
   - type: Resource
     resource:
       name: cpu
-      targetAverageUtilization: 50
+      targetAverageUtilization: {{ .Values.metrics.cpuload }}
   - type: Pods
     pods:
       metricName: packets-per-second
