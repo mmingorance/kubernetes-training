@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: php-apache
   labels:
-    app: loaders-test
+    app: loader-test
     env: testing
 spec:
   selector:
