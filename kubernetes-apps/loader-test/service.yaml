@@ -12,5 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: php-apache
+    app: loader-test
     env: testing

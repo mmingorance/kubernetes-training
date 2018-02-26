@@ -2,6 +2,9 @@ apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: php-apache
+  labels:
+    app: loaders-test
+    env: testing
 spec:
   selector:
     matchLabels:
