@@ -16,7 +16,7 @@ metrics:
 image:
   repository: mmingorance/helloworld
   tag: latest
-  pullPolicy: IfNotPresent
+  
 
 service:
   type: LoadBalancer

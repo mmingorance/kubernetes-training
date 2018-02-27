@@ -1,37 +1,36 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ template "hello-world-helm.fullname" . }}
+  name: {{ .Values.deployment.name }}
   labels:
-    app: {{ template "hello-world-helm.name" . }}
-    chart: {{ template "hello-world-helm.chart" . }}
+    app: {{ .Values.labels.app }}
+    env: {{ .Values.labels.env }}
+    role: {{ .Values.labels.role }}
+    chart: {{ template "redis-helm.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "hello-world-helm.name" . }}
-      env: {{ .Values.environment.name }}
+      app: {{ .Values.labels.app }}
+      env: {{ .Values.labels.env }}
       release: {{ .Release.Name }}
+      role: {{ .Values.labels.role }}
   template:
     metadata:
       labels:
-        app: {{ template "hello-world-helm.name" . }}
-        env: {{ .Values.environment.name }}
+        app: {{ .Values.labels.app }}
+        env: {{ .Values.labels.env }}
+        role: {{ .Values.labels.role }}
         release: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Values.containers.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: GET_HOSTS_FROM
-              value: dns
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+          - containerPort: {{ .Values.service.port }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
